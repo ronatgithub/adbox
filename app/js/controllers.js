@@ -27,6 +27,7 @@ angular.module('app.controllers', [])
 
 // debugger;
 
+// pouchdb with factory
 // taken from: http://jsfiddle.net/yoorek/2zt27/1/
 .controller('MyCtrl2', function ($scope, Database) {
     var db = new Database('test_v1');

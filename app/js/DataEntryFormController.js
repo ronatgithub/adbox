@@ -77,6 +77,11 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       type: 'input',
       templateOptions: {label: 'Your Mobile Number', required: true},
       hideExpression: '!model.seller_name'
+    },
+    {
+      type: 'upload-file',
+      key: 'upload-file',
+      hideExpression: '!model.seller_name'
     }
 
   ];

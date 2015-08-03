@@ -45,7 +45,7 @@ angular.module('app.services', [])
     };
 
     Database.prototype.create = function (record) {
-        return $q.when(_db.put(record))
+        return $q.when(_db.put(record)) // _db.post(record)
             .then(function (result) {
             return _db.get(result.id);
         });
