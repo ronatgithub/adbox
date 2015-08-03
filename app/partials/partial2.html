@@ -3,3 +3,16 @@
   Showing of 'interpolate' filter:
   {{ 'Current version is v%VERSION%.' | interpolate }}
 </p>
+<hr/>
+
+<button ng-click="populate()">Populate Database</button>
+    <button ng-click="init()">Load data from Database</button>
+    
+    <h1>List : </h1>
+
+    <ul>
+        <li ng-repeat="item in data track by item._id">{{item.name}}
+            <button ng-click="remove(item, $index)">x</button>
+        </li>
+    </ul>
+</div>
