@@ -1,0 +1,10 @@
+<p>This is the partial for view 3.</p>
+
+<div class="container col-md-4 col-md-offset-4">
+	<form ng-submit="vm.onSubmit()" novalidate>
+	    <h1>Ad Data Entry Form</h1>
+	    <formly-form model="vm.user" fields="vm.userFields" form="vm.AdForm">
+	        <button type="submit" class="btn btn-primary" ng-disabled="vm.AdForm.$invalid" >Submit</button>
+	    </formly-form>
+	</form>
+</div>

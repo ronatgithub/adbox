@@ -8,7 +8,16 @@
 angular.module('app.services', [])
 .value('version', '0.1')
 
-// have no idea what it means, but works. taken from: http://jsfiddle.net/yoorek/2zt27/1/
+// Service to Share Data Between Controllers
+// http://stackoverflow.com/questions/12008908/how-can-i-pass-variables-between-controllers
+.service('sharedProperties', function() {
+  // private variable
+  var _dataObj = {};
+  this.dataObj = _dataObj;
+})
+
+// factory for pouchdb
+// have no idea what it means, but it works. taken from: http://jsfiddle.net/yoorek/2zt27/1/
 .factory('Database', function ($q) {
     var _db,
     _databaseName;
@@ -36,7 +45,7 @@ angular.module('app.services', [])
     };
 
     Database.prototype.create = function (record) {
-        return $q.when(_db.post(record))
+        return $q.when(_db.put(record))
             .then(function (result) {
             return _db.get(result.id);
         });
