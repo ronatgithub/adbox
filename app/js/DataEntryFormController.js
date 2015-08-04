@@ -10,26 +10,25 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 
 .controller('AdBoxFormController', function AdBoxFormController($scope, Database, sharedProperties) {
   var db = new Database('test_v1'); // set database name
-  var vm = this; // vm stands for "View Model" --> see https://github.com/johnpapa/angular-styleguide#controlleras-with-vm
+  var vm = this; // vm stands for 'View Model' --> see https://github.com/johnpapa/angular-styleguide#controlleras-with-vm
   vm.user = {}; // is the model which holds the form field data
 
   vm.userFields = [
     {
       key: 'ad_size',
       type: 'select',
-      templateOptions: {label: 'Ad Group', valueProp: 'value', required: true,
-        options: [{name: 'Premium', value: 4}, {name: 'Premium Plus', value: 6}, {name: 'Standart', value: 2}, {name: 'Basic', value: 1}]
-      }
+      defaultValue: 4,
+      templateOptions: {label: 'Ad Group', type: 'select', valueProp: 'value', required: true, options: [{name: 'Premium', value: 4}, {name: 'Premium Plus', value: 6}, {name: 'Standart', value: 2}, {name: 'Basic', value: 1}]}
     },
     {
       key: 'car_make',
       type: 'input',
-      templateOptions: {label: 'Car Make', required: true}
+      templateOptions: {label: 'Car Make', type: 'text', required: true}
     },
     {
       key: 'car_model',
       type: 'input',
-      templateOptions: {label: 'Car Model', required: true}
+      templateOptions: {label: 'Car Model', type: 'text', required: true}
     },
     //{
     //  key: 'model_trim',
@@ -39,48 +38,56 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
     {
       key: 'year',
       type: 'input',
-      templateOptions: {label: 'Year Of Registration', required: true}
+      templateOptions: {label: 'Year Of Registration', type: 'number', required: true},
+      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
     },
     {
       key: 'transmission',
       type: 'radio',
-      templateOptions: {label: 'Transmission Type', valueProp: 'name', required: true,
-        options: [{name: 'Automatic'}, {name: 'Manual'}]
-      }
+      templateOptions: {label: 'Transmission Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Automatic'}, {name: 'Manual'}]},
+      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
     },
     {
       key: 'fuel_type',
       type: 'radio',
-      templateOptions: {label: 'Fuel Type', valueProp: 'name', required: true,
-        options: [{name: 'Diesel'}, {name: 'Petrol'}]
-      }
+      templateOptions: {label: 'Fuel Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Diesel'}, {name: 'Petrol'}]},
+      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
     },
     {
       key: 'selling_price',
       type: 'input',
-      templateOptions: {label: 'Selling Price', required: true}
+      templateOptions: {label: 'Selling Price', addonLeft: {"class": "glyphicon glyphicon-piggy-bank"}, type: 'number', required: true}
     },
     {
       key: 'sale_location',
       type: 'select',
-      templateOptions: {label: 'Sale Location', valueProp: 'name', required: true, description: 'Where can the car by viewed?',
-        options: [{name: 'Coast'}, {name: 'Central'}, {name: 'Eastern'}, {name: 'Nairobi Area'}, {name: 'Nyanza'}, {name: 'Rift Valley'}, {name: 'Western'}]
-      }
+      templateOptions: {label: 'Sale Location', addonLeft: {"class": "glyphicon glyphicon-map-marker"}, type: 'select', valueProp: 'name', required: true, description: 'Where can the car by viewed?', options: [{name: 'Coast'}, {name: 'Central'}, {name: 'Eastern'}, {name: 'Nairobi Area'}, {name: 'Nyanza'}, {name: 'Rift Valley'}, {name: 'Western'}]}
     },
     {
       key: 'seller_name',
       type: 'input',
-      templateOptions: {label: 'Your Name', required: true}
+      templateOptions: {label: 'Your Name', type: 'text', required: true}
     },
     {
       key: 'seller_phone',
       type: 'input',
-      templateOptions: {label: 'Your Mobile Number', required: true},
+      templateOptions: {label: 'Your Mobile Number', type: 'tel', required: true},
       hideExpression: '!model.seller_name'
     },
     {
-      type: 'upload-file',
+      key: 'seller_email',
+      type: 'input',
+      templateOptions: {label: 'Your Email', type: 'email', required: true},
+      hideExpression: '!model.seller_name'
+    },
+    {
+	  key: 'extra_text',
+	  type: 'textarea',
+	  templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15}
+	},
+    {
       key: 'upload-file',
+      type: 'upload-file',
       hideExpression: '!model.seller_name'
     }
 
@@ -104,6 +111,8 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 	      sale_location: vm.user.sale_location,
 	      seller_name: vm.user.seller_name,
 	      seller_phone: vm.user.seller_phone,
+	      seller_email: vm.user.seller_email,
+	      extra_text: vm.user.extra_text,
 	      _attachments: sharedProperties.dataObj
 	    });
 	}
