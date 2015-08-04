@@ -31,11 +31,11 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       type: 'input',
       templateOptions: {label: 'Car Model', required: true}
     },
-    {
-      key: 'model_trim',
-      type: 'input',
-      templateOptions: {label: 'Model Trim', required: true, description: 'Specific Type of Car Model'}
-    },
+    //{
+    //  key: 'model_trim',
+    //  type: 'input',
+    //  templateOptions: {label: 'Model Trim', required: true, description: 'Specific Type of Car Model'}
+    //},
     {
       key: 'year',
       type: 'input',
@@ -96,14 +96,15 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 	      ad_size: vm.user.ad_size,
 	      car_make: vm.user.car_make,
 	      car_model: vm.user.car_model,
-	      model_trim: vm.user.model_trim,
+	      //model_trim: vm.user.model_trim,
 	      year: vm.user.year,
 	      transmission: vm.user.transmission,
 	      fuel_type: vm.user.fuel_type,
 	      selling_price: vm.user.selling_price,
 	      sale_location: vm.user.sale_location,
 	      seller_name: vm.user.seller_name,
-	      seller_phone: vm.user.seller_phone
+	      seller_phone: vm.user.seller_phone,
+	      _attachments: sharedProperties.dataObj
 	    });
 	}
 });
