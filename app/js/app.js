@@ -39,7 +39,7 @@ angular.module('app', [
 .run(function(formlyConfig) {
         formlyConfig.setType({
             name: 'upload-file',
-            template: '<input type="file" ngf-select ng-model="files" name="files" accept="image/*" required="" ngf-multiple="false"><img class="thumbnail" ngf-src="files[0]">',
+            template: '<input type="file" ngf-select ng-model="files" name="files" accept="image/*" required="" ngf-multiple="false"><img class="img-thumbnail img-responsive" ngf-src="files[0]">',
             extends: 'input',
             defaultOptions: {
                 templateOptions: {
@@ -47,31 +47,18 @@ angular.module('app', [
                 }
             },
             controller: 
-              function ($scope, Upload) {
+              function ($scope, Upload, sharedProperties) {
                   $scope.$watch('files', function () {
-                      $scope.upload($scope.files);console.log($scope.files);
+                    if( $scope.files && $scope.files.length) {
+                      sharedProperties.dataObj['media1'] = {
+                          content_type: $scope.files[0].type,
+                          data: $scope.files[0]
+                      }
+                    } // end of if
+                      console.log(sharedProperties.dataObj);
                   });
                   // set default directive values
                   // Upload.setDefaults( {ngf-keep:false ngf-accept:'image/*', ...} );
-                  $scope.upload = function (files) {
-                      if (files && files.length) {
-                          for (var i = 0; i < files.length; i++) {
-                              var file = files[i];
-                              Upload.upload({
-                                  url: 'upload/url',
-                                  fields: {'username': $scope.username},
-                                  file: file
-                              }).progress(function (evt) {
-                                  var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                                  console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-                              }).success(function (data, status, headers, config) {
-                                  console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-                              }).error(function (data, status, headers, config) {
-                                  console.log('error status: ' + status);
-                              })
-                          }
-                      }
-                  };
               } // end of function
-        }); // end formly config
-}) // end of .run
+        }) // end formly config
+}); // end of .run
