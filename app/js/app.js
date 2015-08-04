@@ -35,7 +35,7 @@ angular.module('app', [
     redirectTo: '/view1'
   });
 }])
-// https://gist.github.com/kentcdodds/8bfdbf832b3cebfb050f
+// https://gist.github.com/kentcdodds/8bfdbf832b3cebfb050f or https://gist.github.com/benoror/6d70a1d81caa0ce08523
 .run(function(formlyConfig) {
         formlyConfig.setType({
             name: 'upload-file',
@@ -43,14 +43,12 @@ angular.module('app', [
             wrapper: ['bootstrapLabel', 'bootstrapHasError'],
             extends: 'input',
             defaultOptions: {
-                templateOptions: {
-                    label: 'File Upload',
-                }
+                //templateOptions: {label: 'File Upload',}
             },
             controller: /* @ngInject */ function ($scope, Upload, sharedProperties) {
               $scope.$watch('files', function () {
                   if( $scope.files && $scope.files.length) {
-                    sharedProperties.dataObj['media1'] = {
+                    sharedProperties.dataObj[$scope.options.key] = {// $.scope.options.key comes from formly field-key
                         content_type: $scope.files[0].type,
                         data: $scope.files[0]
                     }

@@ -83,12 +83,47 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
     {
 	  key: 'extra_text',
 	  type: 'textarea',
-	  templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15}
+	  templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15, required: true},
+	  expressionProperties: {
+      	'templateOptions.disabled': function($viewValue, $modelValue, scope) {
+        	if(scope.model.ad_size === 4) {
+            	return false;
+            }
+            if(scope.model.ad_size === 6) {
+            	return false;
+            }
+            return true;
+        }
+      }
 	},
     {
-      key: 'upload-file',
+      key: 'media1',
       type: 'upload-file',
-      hideExpression: '!model.seller_name'
+      templateOptions: {label: 'Photo large (385x205)', required: true},
+      //hideExpression: '!model.seller_name'
+      expressionProperties: {
+      	'templateOptions.disabled': function($viewValue, $modelValue, scope) {
+        	if(scope.model.ad_size === 4) {
+            	return false;
+            }
+            if(scope.model.ad_size === 6) {
+            	return false;
+            }
+            return true;
+        }
+      }
+    },
+    {
+      key: 'media2',
+      type: 'upload-file',
+      templateOptions: {label: 'Photo small (185x100)', required: true},
+      //hideExpression: '!model.seller_name'
+    },
+    {
+      key: 'media3',
+      type: 'upload-file',
+      templateOptions: {label: 'Photo small (185x100)', required: true},
+      //hideExpression: '!model.seller_name'
     }
 
   ];
