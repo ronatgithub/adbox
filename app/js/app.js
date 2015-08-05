@@ -36,6 +36,7 @@ angular.module('app', [
   });
 }])
 // https://gist.github.com/kentcdodds/8bfdbf832b3cebfb050f or https://gist.github.com/benoror/6d70a1d81caa0ce08523
+// ng-file-upload implementation into formly fields
 .run(function(formlyConfig) {
         formlyConfig.setType({
             name: 'upload-file',
@@ -46,10 +47,11 @@ angular.module('app', [
                 //templateOptions: {label: 'File Upload',}
             },
             controller: /* @ngInject */ function ($scope, Upload, sharedProperties) {
-              $scope.$watch('files', function () {
+              $scope.$watch('files', function () { 
+            
                   if( $scope.files && $scope.files.length) {
-                    sharedProperties.dataObj[$scope.options.key] = {// $.scope.options.key comes from formly field-key
-                        content_type: $scope.files[0].type,
+                    sharedProperties.dataObj[$scope.options.key] = {// $.scope.options.key comes from formly field-key (reference to formly fields) see also http://stackoverflow.com/questions/1168807/how-can-i-add-a-key-value-pair-to-a-javascript-object-literal
+                        content_type: $scope.files[0].type,// prepare an object to use as pouchdb attachment with the files from file uploader. use the sharedProperties service to share data between controllers
                         data: $scope.files[0]
                     }
                   } // end of if

@@ -72,58 +72,48 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       key: 'seller_phone',
       type: 'input',
       templateOptions: {label: 'Your Mobile Number', type: 'tel', required: true},
-      hideExpression: '!model.seller_name'
+      //hideExpression: '!model.seller_name'
     },
     {
       key: 'seller_email',
       type: 'input',
-      templateOptions: {label: 'Your Email', type: 'email', required: true},
-      hideExpression: '!model.seller_name'
+      templateOptions: {label: 'Your Email', type: 'email', required: true}
     },
     {
 	  key: 'extra_text',
 	  type: 'textarea',
 	  templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15, required: true},
-	  expressionProperties: {
-      	'templateOptions.disabled': function($viewValue, $modelValue, scope) {
-        	if(scope.model.ad_size === 4) {
-            	return false;
-            }
-            if(scope.model.ad_size === 6) {
-            	return false;
-            }
-            return true;
-        }
-      }
+	  // to disable form fields
+	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+	  // to hide form fields
+	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
 	},
     {
       key: 'media1',
       type: 'upload-file',
       templateOptions: {label: 'Photo large (385x205)', required: true},
-      //hideExpression: '!model.seller_name'
-      expressionProperties: {
-      	'templateOptions.disabled': function($viewValue, $modelValue, scope) {
-        	if(scope.model.ad_size === 4) {
-            	return false;
-            }
-            if(scope.model.ad_size === 6) {
-            	return false;
-            }
-            return true;
-        }
-      }
+      // to disable form fields
+	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+	  // to hide form fields
+	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
     },
     {
       key: 'media2',
       type: 'upload-file',
       templateOptions: {label: 'Photo small (185x100)', required: true},
-      //hideExpression: '!model.seller_name'
+      // to disable form fields
+	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+	  // to hide form fields
+	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
     },
     {
       key: 'media3',
       type: 'upload-file',
       templateOptions: {label: 'Photo small (185x100)', required: true},
-      //hideExpression: '!model.seller_name'
+      // to disable form fields
+	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+	  // to hide form fields
+	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
     }
 
   ];
