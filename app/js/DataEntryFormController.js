@@ -46,21 +46,21 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       key: 'year',
       type: 'input',
       templateOptions: {label: 'Year Of Registration', type: 'number', required: true},
-      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
+      //expressionProperties: {'templateOptions.disabled': '!model.car_model'}
       },
       {
       className: 'col-xs-4',
       key: 'transmission',
       type: 'radio',
       templateOptions: {label: 'Transmission Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Automatic'}, {name: 'Manual'}]},
-      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
+      //expressionProperties: {'templateOptions.disabled': '!model.car_model'}
       },
       {
       className: 'col-xs-4',
       key: 'fuel_type',
       type: 'radio',
       templateOptions: {label: 'Fuel Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Diesel'}, {name: 'Petrol'}]},
-      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
+      //expressionProperties: {'templateOptions.disabled': '!model.car_model'}
       }
     ]
   },
