@@ -25,16 +25,22 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
     className: 'row',
     'fieldGroup': [
       {
-      className: 'col-xs-6',
+      className: 'col-xs-4',
       key: 'car_make',
       type: 'input',
       templateOptions: {label: 'Car Make', type: 'text', required: true}
       },
       {
-      className: 'col-xs-6',
+      className: 'col-xs-4',
       key: 'car_model',
       type: 'input',
       templateOptions: {label: 'Car Model', type: 'text', required: true}
+      },
+      {
+      className: 'col-xs-4',
+      key: 'model_trim',
+      type: 'input',
+      templateOptions: {label: 'Model Trim', type: 'text', required: true}
       }
     ]
   },
@@ -162,7 +168,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 	      ad_size: vm.user.ad_size,
 	      car_make: vm.user.car_make,
 	      car_model: vm.user.car_model,
-	      //model_trim: vm.user.model_trim,
+	      model_trim: vm.user.model_trim,
 	      year: vm.user.year,
 	      transmission: vm.user.transmission,
 	      fuel_type: vm.user.fuel_type,
