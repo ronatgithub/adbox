@@ -35,8 +35,22 @@ angular.module('app', [
     redirectTo: '/view1'
   });
 }])
+.run(function(formlyConfig) {
+    formlyConfig.setType({
+      name: 'typeahead',
+      template: '<input type="text" ng-model="model[options.key]" typeahead="item for item in to.options | filter:$viewValue | limitTo:8" class="form-control">',
+      wrapper: ['bootstrapLabel', 'bootstrapHasError'],
+    });
+  })
+// setWrapper for loading status to be displayed when json select list is loading data. the html is in same file as the form itself
+.run(function(formlyConfig) {
+    formlyConfig.setWrapper({
+      name: 'loading',
+      templateUrl: 'loading.html'
+    });
+  })
 // https://gist.github.com/kentcdodds/8bfdbf832b3cebfb050f or https://gist.github.com/benoror/6d70a1d81caa0ce08523
-// ng-file-upload implementation into formly fields
+// setType for ng-file-upload implementation into formly fields
 .run(function(formlyConfig) {
         formlyConfig.setType({
             name: 'upload-file',

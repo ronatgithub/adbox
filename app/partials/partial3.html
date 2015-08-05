@@ -10,3 +10,11 @@
 </div>
 
 
+<script type="text/ng-template" id="loading.html">
+      <div ng-if="to.loading.$$state.status === 0" style="line-height:34px">
+       <span class="glyphicon glyphicon-refresh spinning"></span> Loading Car Make List...
+      </div>
+      <div ng-if="to.loading.$$state.status !== 0">
+        <formly-transclude></formly-transclude>
+      </div>
+</script>

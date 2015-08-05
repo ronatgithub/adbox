@@ -16,6 +16,22 @@ angular.module('app.services', [])
   this.dataObj = _dataObj;
 })
 
+// Service to query CarQueryApi and get Json data returned to use as select options in formly form
+// http://angular-formly.com/#/example/other/async-select-options-with-controller
+// http://www.carqueryapi.com/documentation/api-usage/
+.factory('jsonService', function jsonService($http){
+    return {
+      getJSON: getJSON
+    };
+
+    function getJSON() {
+      return $http.jsonp('http://www.carqueryapi.com/api/0.3/?callback=JSON_CALLBACK&cmd=getMakes') // http://mysafeinfo.com/api/data?list=autocompanies&format=json
+      .success(function(data){ console.log(data); })
+      .error(function(data){ console.log( "nope" ); }); ;
+    }
+})
+
+
 // factory for pouchdb
 // have no idea what it means, but it works. taken from: http://jsfiddle.net/yoorek/2zt27/1/
 .factory('Database', function ($q) {

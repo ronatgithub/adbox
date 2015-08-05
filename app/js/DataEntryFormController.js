@@ -26,9 +26,25 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
     'fieldGroup': [
       {
       className: 'col-xs-4',
-      key: 'car_make',
-      type: 'input',
-      templateOptions: {label: 'Car Make', type: 'text', required: true}
+        key: 'car_make',
+        type: 'select',
+        wrapper: 'loading',
+        templateOptions:{
+          label: 'Car Make',
+          options: [],
+          valueProp: 'make_display',
+          labelProp: 'make_display',
+          required: true,
+          placeholder: 'Select Car Make here'
+        },
+        controller: /* @ngInject */ function($scope, jsonService) {
+          $scope.to.loading = jsonService.getJSON().then(function(response){console.log(response.data.Makes);
+            $scope.to.options = response.data.Makes;
+            // note, the line above is shorthand for:
+            // $scope.options.templateOptions.options = data;
+            return response;
+          });
+        }
       },
       {
       className: 'col-xs-4',
@@ -65,7 +81,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       className: 'col-xs-4',
       key: 'fuel_type',
       type: 'radio',
-      templateOptions: {label: 'Fuel Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Diesel'}, {name: 'Petrol'}]},
+      templateOptions: {label: 'Engine Fuel Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Diesel'}, {name: 'Petrol'}]},
       //expressionProperties: {'templateOptions.disabled': '!model.car_model'}
       }
     ]
