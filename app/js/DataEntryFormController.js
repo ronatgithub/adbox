@@ -14,109 +14,143 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
   vm.user = {}; // is the model which holds the form field data
 
   vm.userFields = [
-    {
+  {
+    className: 'col-xs-12',
       key: 'ad_size',
       type: 'select',
       defaultValue: 4,
       templateOptions: {label: 'Ad Group', type: 'select', valueProp: 'value', required: true, options: [{name: 'Premium', value: 4}, {name: 'Premium Plus', value: 6}, {name: 'Standart', value: 2}, {name: 'Basic', value: 1}]}
-    },
-    {
+  },
+  {
+    className: 'row',
+    'fieldGroup': [
+      {
+      className: 'col-xs-6',
       key: 'car_make',
       type: 'input',
       templateOptions: {label: 'Car Make', type: 'text', required: true}
-    },
-    {
+      },
+      {
+      className: 'col-xs-6',
       key: 'car_model',
       type: 'input',
       templateOptions: {label: 'Car Model', type: 'text', required: true}
-    },
-    //{
-    //  key: 'model_trim',
-    //  type: 'input',
-    //  templateOptions: {label: 'Model Trim', required: true, description: 'Specific Type of Car Model'}
-    //},
-    {
+      }
+    ]
+  },
+  {
+    className: 'row',
+    'fieldGroup': [
+      {
+      className: 'col-xs-4',
       key: 'year',
       type: 'input',
       templateOptions: {label: 'Year Of Registration', type: 'number', required: true},
       expressionProperties: {'templateOptions.disabled': '!model.car_model'}
-    },
-    {
+      },
+      {
+      className: 'col-xs-4',
       key: 'transmission',
       type: 'radio',
       templateOptions: {label: 'Transmission Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Automatic'}, {name: 'Manual'}]},
       expressionProperties: {'templateOptions.disabled': '!model.car_model'}
-    },
-    {
+      },
+      {
+      className: 'col-xs-4',
       key: 'fuel_type',
       type: 'radio',
       templateOptions: {label: 'Fuel Type', type: 'radio', valueProp: 'name', required: true, options: [{name: 'Diesel'}, {name: 'Petrol'}]},
       expressionProperties: {'templateOptions.disabled': '!model.car_model'}
-    },
-    {
+      }
+    ]
+  },
+  {
+    className: 'row',
+    'fieldGroup': [
+      {
+      className: 'col-xs-6',
       key: 'selling_price',
       type: 'input',
       templateOptions: {label: 'Selling Price', addonLeft: {"class": "glyphicon glyphicon-piggy-bank"}, type: 'number', required: true}
-    },
-    {
+      },
+      {
+      className: 'col-xs-6',
       key: 'sale_location',
       type: 'select',
       templateOptions: {label: 'Sale Location', addonLeft: {"class": "glyphicon glyphicon-map-marker"}, type: 'select', valueProp: 'name', required: true, description: 'Where can the car by viewed?', options: [{name: 'Coast'}, {name: 'Central'}, {name: 'Eastern'}, {name: 'Nairobi Area'}, {name: 'Nyanza'}, {name: 'Rift Valley'}, {name: 'Western'}]}
-    },
-    {
-      key: 'seller_name',
-      type: 'input',
-      templateOptions: {label: 'Your Name', type: 'text', required: true}
-    },
-    {
-      key: 'seller_phone',
-      type: 'input',
-      templateOptions: {label: 'Your Mobile Number', type: 'tel', required: true},
-      //hideExpression: '!model.seller_name'
-    },
-    {
-      key: 'seller_email',
-      type: 'input',
-      templateOptions: {label: 'Your Email', type: 'email', required: true}
-    },
-    {
-	  key: 'extra_text',
-	  type: 'textarea',
-	  templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15, required: true},
-	  // to disable form fields
-	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
-	  // to hide form fields
-	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
-	},
-    {
+      }
+    ]
+  },
+  {
+    className: 'col-xs-12',
+      key: 'extra_text',
+      type: 'textarea',
+      templateOptions: {label: 'Text Description', type: 'text', placeholder: 'any extra text goes here', rows: 4, cols: 15, required: true},
+      // to disable form fields
+      //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+      // to hide form fields
+      hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
+  },
+  {
+    className: 'row',
+    'fieldGroup': [
+      {
+      className: 'col-xs-4',
       key: 'media1',
       type: 'upload-file',
       templateOptions: {label: 'Photo large (385x205)', required: true},
       // to disable form fields
-	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
-	  // to hide form fields
-	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
-    },
-    {
+      //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+      // to hide form fields
+      hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}
+      },
+      {
+      className: 'col-xs-4',
       key: 'media2',
       type: 'upload-file',
       templateOptions: {label: 'Photo small (185x100)', required: true},
       // to disable form fields
-	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
-	  // to hide form fields
-	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
-    },
-    {
+      //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+      // to hide form fields
+      hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
+      },
+      {
+      className: 'col-xs-4',
       key: 'media3',
       type: 'upload-file',
       templateOptions: {label: 'Photo small (185x100)', required: true},
       // to disable form fields
-	  //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
-	  // to hide form fields
-	  hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
-    }
-
-  ];
+      //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
+      // to hide form fields
+      hideExpression: function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 2) {return false;} if(scope.model.ad_size === 4) {return true;} if(scope.model.ad_size === 6) {return false;} return true;}
+      }
+    ]
+  },
+  {
+    className: 'row',
+    'fieldGroup': [
+      {
+      className: 'col-xs-4',
+      key: 'seller_name',
+      type: 'input',
+      templateOptions: {label: 'Your Name', type: 'text', required: true}
+      },
+      {
+      className: 'col-xs-4',
+      key: 'seller_phone',
+      type: 'input',
+      templateOptions: {label: 'Your Mobile Number', type: 'tel', required: true},
+      //hideExpression: '!model.seller_name'
+      },
+      {
+      className: 'col-xs-4',
+      key: 'seller_email',
+      type: 'input',
+      templateOptions: {label: 'Your Email', type: 'email', required: true}
+      }
+    ]
+  }
+];
   
   vm.onSubmit = onSubmit;
   
