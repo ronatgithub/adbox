@@ -22,6 +22,33 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       templateOptions: {label: 'Ad Group', type: 'select', valueProp: 'value', required: true, options: [{name: 'Premium', value: 4}, {name: 'Premium Plus', value: 6}, {name: 'Standart', value: 2}, {name: 'Basic', value: 1}]}
   },
   {
+    className: 'col-xs-12',
+
+        key: 'setIdAsYouWishButUnique',
+        type: 'groupedSelect',
+        templateOptions: {
+          description: 'Description : this is a nice select!',
+          options: []
+        },
+        controller: /* @ngInject */ function($scope, jsonService) {
+          var options = [];
+        $scope.to.loading = jsonService.getJSON('getMakes').then(function(response){
+          response.data.Makes.forEach(function(element){
+                console.info(element);
+
+                options.push(element.make_display);  
+          });
+
+
+
+          $scope.to.options = options;   console.log(options);
+          
+          return response;
+          });
+      }
+      
+  },
+  {
     className: 'row',
     'fieldGroup': [
       {

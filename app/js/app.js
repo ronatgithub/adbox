@@ -13,7 +13,8 @@ angular.module('app', [
   'formly',
   'formlyBootstrap',
   'app.DataEntryFormController',
-  'ngFileUpload'
+  'ngFileUpload',
+  'nya.bootstrap.select'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {
@@ -29,11 +30,34 @@ angular.module('app', [
   $routeProvider.when('/view3', {
     templateUrl: 'partials/partial3.html',
     controller: 'AdBoxFormController as vm',
-    css: ['css/app.css', 'bower_components/bootstrap/dist/css/bootstrap.min.css']
+    css: ['css/app.css', 'bower_components/bootstrap/dist/css/bootstrap.min.css', 'bower_components/nya-bootstrap-select/dist/css/nya-bs-select.css']
   });
   $routeProvider.otherwise({
     redirectTo: '/view1'
   });
+}])
+// for nya.bootstrap.select to work with formly
+.config(['formlyConfigProvider', function(formlyConfigProvider) {
+      //nya-bs-select : grouped select template : 
+     var groupedSelectTemplate =   '  <ol data-size="5" class="nya-bs-select col-sm-12 col-xs-12 col-md-12 col-lg12" ' +
+                   '    ng-model="model[options.key || index]" ' +
+                   '       data-live-search="true" ' +
+                   '       disabled="options.templateOptions.options.length === 0">' +
+                                 '       <li nya-bs-option="option in  options.templateOptions.options"  ' +
+                                 '       >' +
+                                 '         <a>' +
+                                 '           <span>{{option}}</span>' +
+                                 '           <span class="glyphicon glyphicon-ok check-mark"></span>' +
+                                 '         </a>' +
+                                 '       </li>' +
+                                 '     </ol>';
+                                 
+   formlyConfigProvider.setType(
+      {
+        name: 'groupedSelect',
+        template: groupedSelectTemplate
+      }
+    );  
 }])
 // setWrapper for loading status to be displayed when json select list is loading data. the html is in same file as the form itself
 .run(function(formlyConfig) {
