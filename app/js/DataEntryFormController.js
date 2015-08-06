@@ -38,7 +38,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
           placeholder: 'Select Car Make here'
         },
         controller: /* @ngInject */ function($scope, jsonService) {
-          $scope.to.loading = jsonService.getJSON().then(function(response){console.log(response.data.Makes);
+          $scope.to.loading = jsonService.getJSON('getMakes').then(function(response){console.log(response.data.Makes);
             $scope.to.options = response.data.Makes;
             // note, the line above is shorthand for:
             // $scope.options.templateOptions.options = data;
@@ -47,12 +47,44 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
         }
       },
       {
-      className: 'col-xs-4',
-      key: 'car_model',
-      type: 'input',
-      templateOptions: {label: 'Car Model', type: 'text', required: true},
-      expressionProperties: {'templateOptions.disabled': '!model.car_make'}
+        className: 'col-xs-4',
+        key: 'car_model',
+        type: 'select',
+        wrapper: 'loading',
+        templateOptions: {
+          label: 'Car Model',
+          options: [],
+          valueProp: 'model_name',
+          labelProp: 'model_name',
+          required: true,
+          placeholder: 'Select Car Make here'
+        },
+        expressionProperties: {'templateOptions.disabled': '!model.car_make'},
+        controller: /* @ngInject */ function($scope, jsonService) {
+		    $scope.$watch('model.car_make', function (newValue, oldValue, theScope) {
+		      if(newValue !== oldValue) {
+		        // logic to reload this select's options asynchronusly based on state's value (newValue)
+		        console.log('new value is different from old value');
+		        if($scope.model[$scope.options.key] && oldValue) {
+		          // reset this select
+		          $scope.model[$scope.options.key] = '';
+		        } 
+		        // Reload options
+                $scope.to.loading = jsonService.getJSON('getModels&make=' + newValue).then(function (res) {console.log(res);
+                  $scope.to.options = res.data.Models;
+                });
+		      }
+		    });
+        
+        }
       },
+      //{
+      //className: 'col-xs-4',
+      //key: 'car_model',
+      //type: 'input',
+      //templateOptions: {label: 'Car Model', type: 'text', required: true},
+      //expressionProperties: {'templateOptions.disabled': '!model.car_make'}
+      //},
       {
       className: 'col-xs-4',
       key: 'model_trim',
@@ -122,7 +154,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       className: 'col-xs-4',
       key: 'media1',
       type: 'upload-file',
-      templateOptions: {label: 'Photo large (385x205)', required: true},
+      templateOptions: {label: 'Photo Large (385x205)', required: true},
       // to disable form fields
       //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
       // to hide form fields
@@ -132,7 +164,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       className: 'col-xs-4',
       key: 'media2',
       type: 'upload-file',
-      templateOptions: {label: 'Photo small (185x100)', required: true},
+      templateOptions: {label: 'Photo Small (185x100)', required: true},
       // to disable form fields
       //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
       // to hide form fields
@@ -142,7 +174,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       className: 'col-xs-4',
       key: 'media3',
       type: 'upload-file',
-      templateOptions: {label: 'Photo small (185x100)', required: true},
+      templateOptions: {label: 'Photo Small (185x100)', required: true},
       // to disable form fields
       //expressionProperties: {'templateOptions.disabled': function($viewValue, $modelValue, scope) {if(scope.model.ad_size === 4) {return false;} if(scope.model.ad_size === 6) {return false;} return true;}}
       // to hide form fields
