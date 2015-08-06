@@ -25,8 +25,8 @@ angular.module('app.services', [])
     };
 
     function getJSON(cmd) {
-        //var cmd = 'getMakes';
-        var source_url = 'http://www.carqueryapi.com/api/0.3/?callback=JSON_CALLBACK&cmd=' + cmd;
+      //var cmd = 'getMakes';
+      var source_url = 'http://www.carqueryapi.com/api/0.3/?callback=JSON_CALLBACK&cmd=' + cmd;
       return $http.jsonp(source_url) // http://mysafeinfo.com/api/data?list=autocompanies&format=json
       .success(function(data){ console.log(data); })
       .error(function(data){ console.log( "nope" ); }); ;

@@ -25,43 +25,29 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
     className: 'row',
     'fieldGroup': [
       {
-      className: 'col-xs-4',
-        key: 'car_make',
-        type: 'select',
-        wrapper: 'loading',
-        templateOptions:{
-          label: 'Car Make',
-          options: [],
-          valueProp: 'make_id',
-          labelProp: 'make_display',
-          required: true,
-          placeholder: 'Select Car Make here'
-        },
-        controller: /* @ngInject */ function($scope, jsonService) {
-          $scope.to.loading = jsonService.getJSON('getMakes').then(function(response){console.log(response.data.Makes);
-            $scope.to.options = response.data.Makes;
-            // note, the line above is shorthand for:
-            // $scope.options.templateOptions.options = data;
-            return response;
-          });
-        }
+	    className: 'col-xs-4',
+	    key: 'car_make',
+	    type: 'select',
+	    wrapper: 'loading',
+	    templateOptions:{label: 'Car Make', options: [], valueProp: 'make_id', labelProp: 'make_display', required: true, placeholder: 'Select Car Make here'},
+	    controller: /* @ngInject */ function($scope, jsonService) {
+	      $scope.to.loading = jsonService.getJSON('getMakes').then(function(response){
+	        $scope.to.options = response.data.Makes;
+	        // note, the line above is shorthand for:
+	        // $scope.options.templateOptions.options = data;
+	        return response;
+	        });
+	    }
       },
       {
         className: 'col-xs-4',
         key: 'car_model',
         type: 'select',
         wrapper: 'loading',
-        templateOptions: {
-          label: 'Car Model',
-          options: [],
-          valueProp: 'model_name',
-          labelProp: 'model_name',
-          required: true,
-          placeholder: 'Select Car Model here'
-        },
+        templateOptions: {label: 'Car Model', options: [], valueProp: 'model_name', labelProp: 'model_name', required: true, placeholder: 'Select Car Model here'},
         expressionProperties: {'templateOptions.disabled': '!model.car_make'},
         controller: /* @ngInject */ function($scope, jsonService) {
-		    $scope.$watch('model.car_make', function (newValue, oldValue, theScope) {
+		    $scope.$watch('model.car_make', function (newValue, oldValue, theScope) {console.log(newValue, oldValue, theScope);
 		      if(newValue !== oldValue) {
 		        // logic to reload this select's options asynchronusly based on state's value (newValue)
 		        console.log('new value is different from old value');
@@ -70,12 +56,11 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 		          $scope.model[$scope.options.key] = '';
 		        } 
 		        // Reload options
-                $scope.to.loading = jsonService.getJSON('getModels&make=' + newValue).then(function (res) {console.log(res);
+                $scope.to.loading = jsonService.getJSON('getModels&make=' + newValue).then(function (res) {
                   $scope.to.options = res.data.Models;
                 });
 		      }
 		    });
-        
         }
       },
       {
@@ -83,14 +68,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
         key: 'model_trim',
         type: 'select',
         wrapper: 'loading',
-        templateOptions: {
-          label: 'Model Trim',
-          options: [],
-          valueProp: 'model_trim',
-          labelProp: 'model_trim',
-          required: true,
-          placeholder: 'Select Model Trim here'
-        },
+        templateOptions: {label: 'Model Trim', options: [], valueProp: 'model_trim', labelProp: 'model_trim', required: true, placeholder: 'Select Model Trim here'},
         expressionProperties: {'templateOptions.disabled': '!model.car_model'},
         controller: /* @ngInject */ function($scope, jsonService) {
 		    $scope.$watch('model.car_model', function (newValue, oldValue, theScope) {
@@ -102,12 +80,11 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
 		          $scope.model[$scope.options.key] = '';
 		        } 
 		        // Reload options
-                $scope.to.loading = jsonService.getJSON('getTrims&full_results=0&model=' + newValue).then(function (res) {console.log(res);
+                $scope.to.loading = jsonService.getJSON('getTrims&full_results=0&model=' + newValue).then(function (res) {
                   $scope.to.options = res.data.Trims;
                 });
 		      }
-		    });
-        
+		    });   
         }
       }
     ]
