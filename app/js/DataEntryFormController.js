@@ -32,7 +32,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
         templateOptions:{
           label: 'Car Make',
           options: [],
-          valueProp: 'make_display',
+          valueProp: 'make_id',
           labelProp: 'make_display',
           required: true,
           placeholder: 'Select Car Make here'
@@ -57,7 +57,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
           valueProp: 'model_name',
           labelProp: 'model_name',
           required: true,
-          placeholder: 'Select Car Make here'
+          placeholder: 'Select Car Model here'
         },
         expressionProperties: {'templateOptions.disabled': '!model.car_make'},
         controller: /* @ngInject */ function($scope, jsonService) {
@@ -78,19 +78,37 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
         
         }
       },
-      //{
-      //className: 'col-xs-4',
-      //key: 'car_model',
-      //type: 'input',
-      //templateOptions: {label: 'Car Model', type: 'text', required: true},
-      //expressionProperties: {'templateOptions.disabled': '!model.car_make'}
-      //},
       {
-      className: 'col-xs-4',
-      key: 'model_trim',
-      type: 'input',
-      templateOptions: {label: 'Model Trim', type: 'text', required: true},
-      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
+        className: 'col-xs-4',
+        key: 'model_trim',
+        type: 'select',
+        wrapper: 'loading',
+        templateOptions: {
+          label: 'Model Trim',
+          options: [],
+          valueProp: 'model_trim',
+          labelProp: 'model_trim',
+          required: true,
+          placeholder: 'Select Model Trim here'
+        },
+        expressionProperties: {'templateOptions.disabled': '!model.car_model'},
+        controller: /* @ngInject */ function($scope, jsonService) {
+		    $scope.$watch('model.car_model', function (newValue, oldValue, theScope) {
+		      if(newValue !== oldValue) {
+		        // logic to reload this select's options asynchronusly based on state's value (newValue)
+		        console.log('new value is different from old value');
+		        if($scope.model[$scope.options.key] && oldValue) {
+		          // reset this select
+		          $scope.model[$scope.options.key] = '';
+		        } 
+		        // Reload options
+                $scope.to.loading = jsonService.getJSON('getTrims&full_results=0&model=' + newValue).then(function (res) {console.log(res);
+                  $scope.to.options = res.data.Trims;
+                });
+		      }
+		    });
+        
+        }
       }
     ]
   },
