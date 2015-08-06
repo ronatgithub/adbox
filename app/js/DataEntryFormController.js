@@ -47,7 +47,7 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
         templateOptions: {label: 'Car Model', options: [], valueProp: 'model_name', labelProp: 'model_name', required: true, placeholder: 'Select Car Model here'},
         expressionProperties: {'templateOptions.disabled': '!model.car_make'},
         controller: /* @ngInject */ function($scope, jsonService) {
-		    $scope.$watch('model.car_make', function (newValue, oldValue, theScope) {console.log(newValue, oldValue, theScope);
+		    $scope.$watch('model.car_make', function (newValue, oldValue, theScope) {
 		      if(newValue !== oldValue) {
 		        // logic to reload this select's options asynchronusly based on state's value (newValue)
 		        console.log('new value is different from old value');
