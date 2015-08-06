@@ -50,13 +50,15 @@ angular.module('app.DataEntryFormController', []) // module name, this needs to 
       className: 'col-xs-4',
       key: 'car_model',
       type: 'input',
-      templateOptions: {label: 'Car Model', type: 'text', required: true}
+      templateOptions: {label: 'Car Model', type: 'text', required: true},
+      expressionProperties: {'templateOptions.disabled': '!model.car_make'}
       },
       {
       className: 'col-xs-4',
       key: 'model_trim',
       type: 'input',
-      templateOptions: {label: 'Model Trim', type: 'text', required: true}
+      templateOptions: {label: 'Model Trim', type: 'text', required: true},
+      expressionProperties: {'templateOptions.disabled': '!model.car_model'}
       }
     ]
   },
